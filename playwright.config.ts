@@ -15,7 +15,7 @@ export default defineConfig({
   reporter: [['html']],
 
   use: {
-    baseURL: environment.baseUrl,
+    baseURL: environment.apiUrl,
 
     trace: 'on-first-retry',
 
@@ -31,7 +31,16 @@ export default defineConfig({
     },
 
     {
+      name: 'api',
+      testMatch: '**/api/**/*.spec.ts',
+      use: {
+        baseURL: environment.apiUrl,
+      },
+    },
+
+    {
       name: 'chromium',
+      testIgnore: '**/api/**/*.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'auth/user.json',
@@ -41,6 +50,7 @@ export default defineConfig({
 
     {
       name: 'firefox',
+      testIgnore: '**/api/**/*.spec.ts',
       use: {
         ...devices['Desktop Firefox'],
         storageState: 'auth/user.json',
@@ -50,6 +60,7 @@ export default defineConfig({
 
     {
       name: 'webkit',
+      testIgnore: '**/api/**/*.spec.ts',
       use: {
         ...devices['Desktop Safari'],
         storageState: 'auth/user.json',

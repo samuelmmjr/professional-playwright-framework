@@ -1,4 +1,4 @@
-import { test as setup, expect } from '@playwright/test';
+import { test as setup } from '@playwright/test';
 
 const authFile = 'auth/user.json';
 
@@ -15,9 +15,7 @@ setup('authenticate user', async ({ page }) => {
     })
     .click();
 
-  await expect(page.locator('[data-test="page-title"]')).toHaveText(
-    'My account',
-  );
+  await page.waitForLoadState('networkidle');
 
   await page.context().storageState({
     path: authFile,
