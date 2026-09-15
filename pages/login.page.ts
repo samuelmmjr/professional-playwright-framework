@@ -8,13 +8,9 @@ export class LoginPage {
   }
 
   async login(email: string, password: string) {
-    await this.page
-      .locator('#email')
-      .fill(email);
+    await this.page.locator('#email').fill(email);
 
-    await this.page
-      .locator('#password')
-      .fill(password);
+    await this.page.locator('#password').fill(password);
 
     await this.page
       .getByRole('button', {
@@ -24,8 +20,8 @@ export class LoginPage {
   }
 
   async validateLoginSuccess() {
-    await expect(
-      this.page.getByText('My account')
-    ).toBeVisible();
+    await expect(this.page.locator('[data-test="page-title"]')).toHaveText(
+      'My account',
+    );
   }
 }

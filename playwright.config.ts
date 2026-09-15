@@ -12,9 +12,7 @@ export default defineConfig({
 
   workers: process.env.CI ? 1 : undefined,
 
-  reporter: [
-    ['html']
-  ],
+  reporter: [['html']],
 
   use: {
     baseURL: environment.baseUrl,
@@ -23,29 +21,40 @@ export default defineConfig({
 
     screenshot: 'only-on-failure',
 
-    video: 'retain-on-failure'
+    video: 'retain-on-failure',
   },
 
   projects: [
     {
+      name: 'setup',
+      testMatch: '**/*.setup.ts',
+    },
+
+    {
       name: 'chromium',
       use: {
-        ...devices['Desktop Chrome']
-      }
+        ...devices['Desktop Chrome'],
+        storageState: 'auth/user.json',
+      },
+      dependencies: ['setup'],
     },
 
     {
       name: 'firefox',
       use: {
-        ...devices['Desktop Firefox']
-      }
+        ...devices['Desktop Firefox'],
+        storageState: 'auth/user.json',
+      },
+      dependencies: ['setup'],
     },
 
     {
       name: 'webkit',
       use: {
-        ...devices['Desktop Safari']
-      }
-    }
-  ]
+        ...devices['Desktop Safari'],
+        storageState: 'auth/user.json',
+      },
+      dependencies: ['setup'],
+    },
+  ],
 });
