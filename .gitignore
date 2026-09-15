@@ -3,3 +3,4 @@ test-results/
 playwright-report/
 node_modules/
 auth/*.json
+api-types.ts

@@ -1,12 +1,10 @@
-import { Page, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class LoginPage {
   constructor(private readonly page: Page) {}
 
   async open() {
     await this.page.goto('/auth/login');
-
-    await this.page.locator('#email').waitFor();
   }
 
   async login(email: string, password: string) {
@@ -19,11 +17,5 @@ export class LoginPage {
         name: 'Login',
       })
       .click();
-  }
-
-  async validateLoginSuccess() {
-    await expect(this.page.locator('[data-test="page-title"]')).toHaveText(
-      'My account',
-    );
   }
 }
