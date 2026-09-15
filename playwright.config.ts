@@ -4,18 +4,19 @@ import { environment } from './config/environment';
 export default defineConfig({
   testDir: './tests',
 
-  fullyParallel: true,
+  fullyParallel: false,
 
   forbidOnly: !!process.env.CI,
 
   retries: process.env.CI ? 2 : 0,
 
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 2,
 
   reporter: [['html']],
 
   use: {
-    baseURL: environment.apiUrl,
+    // URL padrão para testes UI
+    baseURL: environment.baseUrl,
 
     trace: 'on-first-retry',
 
@@ -27,12 +28,15 @@ export default defineConfig({
   projects: [
     {
       name: 'setup',
+
       testMatch: '**/*.setup.ts',
     },
 
     {
       name: 'api',
+
       testMatch: '**/api/**/*.spec.ts',
+
       use: {
         baseURL: environment.apiUrl,
       },
@@ -40,31 +44,40 @@ export default defineConfig({
 
     {
       name: 'chromium',
+
       testIgnore: '**/api/**/*.spec.ts',
+
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'auth/user.json',
       },
+
       dependencies: ['setup'],
     },
 
     {
       name: 'firefox',
+
       testIgnore: '**/api/**/*.spec.ts',
+
       use: {
         ...devices['Desktop Firefox'],
         storageState: 'auth/user.json',
       },
+
       dependencies: ['setup'],
     },
 
     {
       name: 'webkit',
+
       testIgnore: '**/api/**/*.spec.ts',
+
       use: {
         ...devices['Desktop Safari'],
         storageState: 'auth/user.json',
       },
+
       dependencies: ['setup'],
     },
   ],

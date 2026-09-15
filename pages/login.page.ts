@@ -5,6 +5,8 @@ export class LoginPage {
 
   async open() {
     await this.page.goto('/auth/login');
+
+    await this.page.locator('#email').waitFor();
   }
 
   async login(email: string, password: string) {

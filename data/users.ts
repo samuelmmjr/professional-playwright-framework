@@ -1,4 +1,6 @@
 export function createUser() {
+  const uniqueId = `${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+
   return {
     first_name: 'Automation',
     last_name: 'Test',
@@ -9,7 +11,7 @@ export function createUser() {
     state: 'Test State',
     country: 'BR',
     phone: '11999999999',
-    email: `automation.${Date.now()}@example.com`,
+    email: `automation.${uniqueId}@example.com`,
     password: 'AutoTest#2026!x9',
   };
 }
