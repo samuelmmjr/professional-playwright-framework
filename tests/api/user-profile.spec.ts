@@ -1,15 +1,10 @@
-import { test, expect } from '@playwright/test';
-import { AuthService } from '../../services/auth.service';
+import { test, expect } from '../../fixtures/api.fixture';
 import { UsersService } from '../../services/users.service';
 
-test('authenticated user should get profile', async ({ request }) => {
-  const authService = new AuthService(request);
-
-  const login = await authService.login('samuel@gmail.com', 'SUA_SENHA');
-
+test('authenticated user should get profile', async ({ request, apiUser }) => {
   const usersService = new UsersService(request);
 
-  const user = await usersService.getCurrentUser(login.access_token);
+  const user = await usersService.getCurrentUser(apiUser.token);
 
-  expect(user.email).toBe('samuel@gmail.com');
+  expect(user.email).toBe(apiUser.email);
 });
