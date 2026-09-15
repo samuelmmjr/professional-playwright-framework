@@ -1,21 +1,26 @@
 import { test as setup } from '@playwright/test';
+import { UsersService } from '../../services/users.service';
+import { AuthService } from '../../services/auth.service';
+import { createUser } from '../../data/users';
 
 const authFile = 'auth/user.json';
 
-setup('authenticate user', async ({ page }) => {
-  await page.goto('/auth/login');
+setup('authenticate user', async ({ page, request }) => {
+  const usersService = new UsersService(request);
 
-  await page.locator('#email').fill('customer@practicesoftwaretesting.com');
+  const authService = new AuthService(request);
 
-  await page.locator('#password').fill('welcome01');
+  const user = createUser();
 
-  await page
-    .getByRole('button', {
-      name: 'Login',
-    })
-    .click();
+  await usersService.register(user);
 
-  await page.waitForLoadState('networkidle');
+  const login = await authService.login(user.email, user.password);
+
+  await page.goto('/');
+
+  await page.evaluate((token) => {
+    localStorage.setItem('auth-token', token);
+  }, login.access_token);
 
   await page.context().storageState({
     path: authFile,
