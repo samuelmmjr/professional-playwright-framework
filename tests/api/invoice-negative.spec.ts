@@ -1,7 +1,5 @@
 import { test, expect } from '../../fixtures/api.fixture';
 import { InvoiceService } from '../../services/invoice.service';
-import { CartService } from '../../services/cart.service';
-import { ProductsService } from '../../services/products.service';
 import { CreateInvoiceRequest } from '../../utils/api-types';
 
 test.describe('Invoice API - Negative Tests', () => {
@@ -9,15 +7,6 @@ test.describe('Invoice API - Negative Tests', () => {
     request,
   }) => {
     const invoiceService = new InvoiceService(request);
-    const cartService = new CartService(request);
-    const productsService = new ProductsService(request);
-
-    const cart = await cartService.createCart();
-
-    const products = await productsService.getProducts();
-    const product = products.data[0];
-
-    await cartService.addProduct(cart.id, product.id, 1);
 
     const invoiceData: CreateInvoiceRequest = {
       billing_street: 'Automation Street, 100',
@@ -25,8 +14,11 @@ test.describe('Invoice API - Negative Tests', () => {
       billing_state: 'Test State',
       billing_country: 'US',
       billing_postcode: '10001',
+
       payment_method: 'bank-transfer',
-      cart_id: cart.id,
+
+      cart_id: 'invalid-cart-id',
+
       payment_details: {
         bank_name: 'Test Bank',
         account_name: 'Automation',
@@ -62,7 +54,9 @@ test.describe('Invoice API - Negative Tests', () => {
       billing_country: '',
       billing_state: '',
       billing_postcode: '',
+
       payment_method: 'bank-transfer',
+
       cart_id: 'invalid-cart-id',
     } as CreateInvoiceRequest;
 
