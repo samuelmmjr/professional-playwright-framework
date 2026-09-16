@@ -52,3 +52,94 @@ export interface CartItem {
 export interface CartActionResponse {
   result: string;
 }
+
+export interface InvoiceResponse {
+  id: string;
+  user_id: string;
+  invoice_number: string;
+  invoice_date: string;
+  created_at: string;
+
+  billing_street: string;
+  billing_city: string;
+  billing_country: string;
+  billing_state: string;
+
+  subtotal: number;
+  total: number;
+
+  additional_discount_percentage?: number | null;
+  additional_discount_amount?: number;
+
+  status?: string;
+  status_message?: string;
+}
+
+export interface InvoiceLine {
+  id: string;
+  invoice_id: string;
+  product_id: string;
+
+  unit_price: number;
+  discount_percentage: number;
+  discounted_price: number;
+
+  quantity: number;
+
+  product: ProductResponse;
+}
+
+export interface CreateInvoiceRequest {
+  billing_street: string;
+  billing_city: string;
+  billing_country: string;
+  billing_state: string;
+  billing_postcode: string;
+
+  payment_method: string;
+
+  cart_id: string;
+
+  payment_details?: {
+    bank_name?: string;
+    account_name?: string;
+    account_number?: string;
+  };
+}
+
+export interface InvoiceDetailsResponse {
+  id: string;
+  invoice_date: string;
+
+  invoice_number: string;
+
+  billing_street: string;
+  billing_city: string;
+  billing_state: string;
+  billing_country: string;
+  billing_postal_code: string | null;
+
+  subtotal: number;
+  total: number;
+
+  status: string;
+  status_message: string | null;
+
+  created_at: string;
+
+  user_id: string;
+
+  invoicelines: InvoiceLine[];
+
+  payment: InvoicePayment;
+}
+
+export interface InvoicePayment {
+  payment_method: string;
+
+  payment_details?: {
+    bank_name?: string;
+    account_name?: string;
+    account_number?: string;
+  };
+}

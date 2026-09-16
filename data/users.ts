@@ -6,7 +6,7 @@ export function createUser() {
     last_name: 'Test',
     dob: '1990-01-01',
     address: ['Automation Street', '100'],
-    postcode: '12345',
+    postcode: '51240100',
     city: 'Test City',
     state: 'Test State',
     country: 'BR',
