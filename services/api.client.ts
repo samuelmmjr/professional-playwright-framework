@@ -1,6 +1,7 @@
 import { APIRequestContext, APIResponse } from '@playwright/test';
 
 import { environment } from '../config/environment';
+import { ApiError } from '../utils/api-error';
 
 export class ApiClient {
   constructor(private readonly request: APIRequestContext) {}
@@ -17,7 +18,15 @@ export class ApiClient {
     if (!response.ok()) {
       const body = await response.text();
 
-      throw new Error(`API Error ${response.status()}: ${body}`);
+      let parsedBody: unknown = body;
+
+      try {
+        parsedBody = JSON.parse(body);
+      } catch {
+        // Keep raw response when body is not JSON
+      }
+
+      throw new ApiError(response.status(), parsedBody);
     }
 
     if (response.status() === 204) {

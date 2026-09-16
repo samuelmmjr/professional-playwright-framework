@@ -14,13 +14,35 @@ export interface UserResponse {
 export interface ProductResponse {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   price: number;
-  is_location_offer: boolean;
-  is_rental: boolean;
-  co2_rating: string;
-  in_stock: boolean;
-  is_eco_friendly: boolean;
+
+  is_location_offer?: boolean;
+  is_rental?: boolean;
+
+  co2_rating?: string;
+  in_stock?: boolean | null;
+  is_eco_friendly?: boolean;
+
+  brand?: {
+    id: string;
+    name: string;
+  };
+
+  category?: {
+    id: string;
+    name: string;
+  };
+
+  product_image?: {
+    id: string;
+    file_name?: string;
+    title?: string;
+    by_name?: string;
+    by_url?: string;
+    source_name?: string;
+    source_url?: string;
+  };
 }
 
 export interface ProductsResponse {
@@ -53,41 +75,9 @@ export interface CartActionResponse {
   result: string;
 }
 
-export interface InvoiceResponse {
-  id: string;
-  user_id: string;
-  invoice_number: string;
-  invoice_date: string;
-  created_at: string;
-
-  billing_street: string;
-  billing_city: string;
-  billing_country: string;
-  billing_state: string;
-
-  subtotal: number;
-  total: number;
-
-  additional_discount_percentage?: number | null;
-  additional_discount_amount?: number;
-
-  status?: string;
-  status_message?: string;
-}
-
-export interface InvoiceLine {
-  id: string;
-  invoice_id: string;
-  product_id: string;
-
-  unit_price: number;
-  discount_percentage: number;
-  discounted_price: number;
-
-  quantity: number;
-
-  product: ProductResponse;
-}
+// =======================
+// Invoice Create Request
+// =======================
 
 export interface CreateInvoiceRequest {
   billing_street: string;
@@ -107,20 +97,61 @@ export interface CreateInvoiceRequest {
   };
 }
 
+// =======================
+// Invoice Create Response
+// =======================
+
+export interface InvoiceResponse {
+  id: string;
+  user_id: string;
+
+  invoice_number: string;
+  invoice_date: string;
+  created_at: string;
+
+  billing_street: string;
+  billing_city: string;
+  billing_country: string;
+  billing_state: string;
+
+  subtotal: number;
+  total: number;
+
+  additional_discount_percentage: number | null;
+  additional_discount_amount: number;
+
+  eco_discount_percentage?: number;
+  eco_discount_amount?: number;
+
+  status?: string | null;
+  status_message?: string | null;
+}
+
+// =======================
+// Invoice Detail Response
+// =======================
+
 export interface InvoiceDetailsResponse {
   id: string;
-  invoice_date: string;
 
+  invoice_date: string;
   invoice_number: string;
 
   billing_street: string;
   billing_city: string;
   billing_state: string;
   billing_country: string;
+
   billing_postal_code: string | null;
 
   subtotal: number;
   total: number;
+
+  additional_discount_percentage: number | null;
+  additional_discount_amount: number;
+
+  eco_discount_percentage?: number;
+  eco_discount_amount?: number;
 
   status: string;
   status_message: string | null;
@@ -132,6 +163,22 @@ export interface InvoiceDetailsResponse {
   invoicelines: InvoiceLine[];
 
   payment: InvoicePayment;
+}
+
+export interface InvoiceLine {
+  id: string;
+
+  invoice_id: string;
+  product_id: string;
+
+  unit_price: number;
+
+  discount_percentage: number | null;
+  discounted_price: number | null;
+
+  quantity: number;
+
+  product: ProductResponse;
 }
 
 export interface InvoicePayment {
