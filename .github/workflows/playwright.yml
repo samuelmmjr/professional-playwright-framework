@@ -33,6 +33,9 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Run API tests
+        env:
+          BASE_URL: https://practicesoftwaretesting.com
+          API_URL: https://api.practicesoftwaretesting.com
         run: npm run test:api
 
       - name: Upload Playwright report
