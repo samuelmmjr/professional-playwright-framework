@@ -2,6 +2,7 @@ import { test, expect } from '../../fixtures/api.fixture';
 import { InvoiceService } from '../../services/invoice.service';
 import { createInvoicePayload } from '../../data/invoices';
 import { createInvalidInvoicePayload } from '../../data/invoices';
+import { expectApiError } from '../../utils/assertions';
 
 test.describe('Invoice API - Negative Tests', () => {
   test('should reject invoice creation without authentication', async ({
@@ -11,9 +12,7 @@ test.describe('Invoice API - Negative Tests', () => {
 
     const invoiceData = createInvoicePayload('invalid-cart-id');
 
-    await expect(invoiceService.createInvoice(invoiceData, '')).rejects.toThrow(
-      '401',
-    );
+    await expectApiError(invoiceService.createInvoice(invoiceData, ''), 401);
   });
 
   test('should return error when invoice does not exist', async ({
@@ -22,9 +21,10 @@ test.describe('Invoice API - Negative Tests', () => {
   }) => {
     const invoiceService = new InvoiceService(request);
 
-    await expect(
+    await expectApiError(
       invoiceService.getInvoice('invalid-invoice-id', apiUser.token),
-    ).rejects.toThrow('404');
+      404,
+    );
   });
 
   test('should reject invoice without required billing data', async ({
@@ -35,8 +35,9 @@ test.describe('Invoice API - Negative Tests', () => {
 
     const invoiceData = createInvalidInvoicePayload('invalid-cart-id');
 
-    await expect(
+    await expectApiError(
       invoiceService.createInvoice(invoiceData, apiUser.token),
-    ).rejects.toThrow('422');
+      422,
+    );
   });
 });

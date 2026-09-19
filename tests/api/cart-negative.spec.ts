@@ -1,6 +1,7 @@
 import { test, expect } from '../../fixtures/api.fixture';
 import { CartService } from '../../services/cart.service';
 import { ProductsService } from '../../services/products.service';
+import { expectApiError } from '../../utils/assertions';
 
 test.describe('Cart API - Negative Tests', () => {
   test('should return error when trying to get a cart that does not exist', async ({
@@ -8,7 +9,7 @@ test.describe('Cart API - Negative Tests', () => {
   }) => {
     const cartService = new CartService(request);
 
-    await expect(cartService.getCart('invalid-cart-id')).rejects.toThrow('404');
+    await expectApiError(cartService.getCart('invalid-cart-id'), 404);
   });
 
   test('should return error when adding invalid product to cart', async ({
@@ -18,9 +19,10 @@ test.describe('Cart API - Negative Tests', () => {
 
     const cart = await cartService.createCart();
 
-    await expect(
+    await expectApiError(
       cartService.addProduct(cart.id, 'invalid-product-id', 1),
-    ).rejects.toThrow('404');
+      404,
+    );
   });
 
   test('should return error when updating product with invalid quantity', async ({
@@ -36,9 +38,10 @@ test.describe('Cart API - Negative Tests', () => {
 
     await cartService.addProduct(cart.id, product.id, 1);
 
-    await expect(
+    await expectApiError(
       cartService.updateProductQuantity(cart.id, product.id, -1),
-    ).rejects.toThrow('404');
+      404,
+    );
   });
 
   test('should ignore removing product that does not exist', async ({
