@@ -3,7 +3,7 @@ import { CartService } from '../../services/cart.service';
 import { ProductsService } from '../../services/products.service';
 import { expectApiError } from '../../utils/assertions';
 
-test.describe('Cart API - Negative Tests', () => {
+test.describe('@negative @regression Cart API - Negative Tests', () => {
   test('should return error when trying to get a cart that does not exist', async ({
     request,
   }) => {

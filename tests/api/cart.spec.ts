@@ -2,12 +2,12 @@ import { test, expect } from '../../fixtures/api.fixture';
 
 import { CartService } from '../../services/cart.service';
 
-test('should add product to cart', async ({ request, cartWithProduct }) => {
+test('@smoke @regression should add product to cart', async ({ request, cartWithProduct }) => {
   expect(cartWithProduct.cartId).toBeDefined();
   expect(cartWithProduct.productId).toBeDefined();
 });
 
-test('should return cart with added product', async ({
+test('@regression should return cart with added product', async ({
   request,
   cartWithProduct,
 }) => {
@@ -21,7 +21,7 @@ test('should return cart with added product', async ({
   expect(cart.cart_items[0].quantity).toBe(1);
 });
 
-test('should update product quantity in cart', async ({
+test('@regression should update product quantity in cart', async ({
   request,
   cartWithProduct,
 }) => {
@@ -40,7 +40,7 @@ test('should update product quantity in cart', async ({
   expect(updatedCart.cart_items[0].quantity).toBe(3);
 });
 
-test('should remove product from cart', async ({
+test('@regression should remove product from cart', async ({
   request,
   cartWithProduct,
 }) => {

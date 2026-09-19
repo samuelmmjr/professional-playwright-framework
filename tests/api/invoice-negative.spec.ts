@@ -4,7 +4,7 @@ import { createInvoicePayload } from '../../data/invoices';
 import { createInvalidInvoicePayload } from '../../data/invoices';
 import { expectApiError } from '../../utils/assertions';
 
-test.describe('Invoice API - Negative Tests', () => {
+test.describe('@negative @regression Invoice API - Negative Tests', () => {
   test('should reject invoice creation without authentication', async ({
     request,
   }) => {

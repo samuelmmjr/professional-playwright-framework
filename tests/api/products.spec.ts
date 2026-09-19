@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { ProductsService } from '../../services/products.service';
 
-test('should return products list', async ({ request }) => {
+test('@smoke @regression should return products list', async ({ request }) => {
   const productsService = new ProductsService(request);
 
   const response = await productsService.getProducts();
@@ -9,7 +9,7 @@ test('should return products list', async ({ request }) => {
   expect(response.data.length).toBeGreaterThan(0);
 });
 
-test('should return product details by id', async ({ request }) => {
+test('@regression should return product details by id', async ({ request }) => {
   const productsService = new ProductsService(request);
 
   const products = await productsService.getProducts();
