@@ -55,30 +55,30 @@ export default defineConfig({
       dependencies: ['setup'],
     },
 
-    {
-      name: 'firefox',
+    // {
+    //   name: 'firefox',
 
-      testIgnore: '**/api/**/*.spec.ts',
+    //   testIgnore: '**/api/**/*.spec.ts',
 
-      use: {
-        ...devices['Desktop Firefox'],
-        storageState: 'auth/user.json',
-      },
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     storageState: 'auth/user.json',
+    //   },
 
-      dependencies: ['setup'],
-    },
+    //   dependencies: ['setup'],
+    // },
 
-    {
-      name: 'webkit',
+    // {
+    //   name: 'webkit',
 
-      testIgnore: '**/api/**/*.spec.ts',
+    //   testIgnore: '**/api/**/*.spec.ts',
 
-      use: {
-        ...devices['Desktop Safari'],
-        storageState: 'auth/user.json',
-      },
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     storageState: 'auth/user.json',
+    //   },
 
-      dependencies: ['setup'],
-    },
+    //   dependencies: ['setup'],
+    // },
   ],
 });

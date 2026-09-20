@@ -1,9 +1,10 @@
-import { test, expect } from '@playwright/test';
+import { test } from '../../fixtures/test.fixture';
 
-test('authenticated user should access account', async ({ page }) => {
+test('authenticated user should access account', async ({
+  page,
+  accountPage,
+}) => {
   await page.goto('/account');
 
-  await expect(page.locator('[data-test="page-title"]')).toHaveText(
-    'My account',
-  );
+  await accountPage.validateLoaded();
 });

@@ -1,10 +1,13 @@
 import { test as base } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
+import { AccountPage } from '../pages/account.page';
 import { UsersService } from '../services/users.service';
 import { createUser } from '../data/users';
 
 type Fixtures = {
   loginPage: LoginPage;
+
+  accountPage: AccountPage;
 
   testUser: {
     email: string;
@@ -15,6 +18,10 @@ type Fixtures = {
 export const test = base.extend<Fixtures>({
   loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
+  },
+
+  accountPage: async ({ page }, use) => {
+    await use(new AccountPage(page));
   },
 
   testUser: async ({ request }, use) => {
