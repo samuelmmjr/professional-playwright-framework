@@ -1,21 +1,22 @@
 import { defineConfig, devices } from '@playwright/test';
 import { environment } from './config/environment';
 
+const isCI = !!process.env.CI;
+
 export default defineConfig({
   testDir: './tests',
 
   fullyParallel: false,
 
-  forbidOnly: !!process.env.CI,
+  forbidOnly: isCI,
 
-  retries: process.env.CI ? 2 : 0,
+  retries: isCI ? 2 : 0,
 
-  workers: process.env.CI ? 1 : 2,
+  workers: isCI ? 1 : 2,
 
   reporter: [['html']],
 
   use: {
-    // URL padrão para testes UI
     baseURL: environment.baseUrl,
 
     trace: 'on-first-retry',
