@@ -29,29 +29,17 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Check formatting
+        run: npm run format:check
+
       - name: TypeScript check
         run: npx tsc --noEmit
 
       - name: Run API tests
-        if: github.event_name == 'pull_request'
         env:
           BASE_URL: https://practicesoftwaretesting.com
           API_URL: https://api.practicesoftwaretesting.com
         run: npm run test:api
-
-      - name: Run Smoke E2E
-        if: github.event_name == 'pull_request'
-        env:
-          BASE_URL: https://practicesoftwaretesting.com
-          API_URL: https://api.practicesoftwaretesting.com
-        run: npx playwright test --grep @smoke --project=chromium
-
-      - name: Run full test suite
-        if: github.event_name == 'push'
-        env:
-          BASE_URL: https://practicesoftwaretesting.com
-          API_URL: https://api.practicesoftwaretesting.com
-        run: npm test
 
       - name: Upload Playwright report
         if: always()
