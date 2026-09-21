@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 
 export class LoginPage {
   constructor(private readonly page: Page) {}
@@ -17,5 +17,13 @@ export class LoginPage {
         name: 'Login',
       })
       .click();
+  }
+
+  async validateLoginError() {
+    await expect(
+      this.page.getByText('Invalid email or password', {
+        exact: true,
+      }),
+    ).toBeVisible();
   }
 }

@@ -11,3 +11,13 @@ test('user should login successfully', async ({
 
   await accountPage.validateLoaded();
 });
+
+test('user should not login with invalid credentials', async ({
+  loginPage,
+}) => {
+  await loginPage.open();
+
+  await loginPage.login('invalid-user@example.com', 'invalid-password');
+
+  await loginPage.validateLoginError();
+});
