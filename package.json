@@ -6,6 +6,7 @@
   "scripts": {
     "test": "playwright test",
     "test:api": "playwright test --project api",
+    "test:e2e": "playwright test tests/e2e",
     "report": "playwright show-report"
   },
   "repository": {
