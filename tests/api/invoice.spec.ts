@@ -2,7 +2,9 @@ import { test, expect } from '../../fixtures/api.fixture';
 import { InvoiceService } from '../../services/invoice.service';
 
 test.describe('Invoice API', () => {
-  test('@smoke @regression should create invoice from cart', async ({ invoiceWithProduct }) => {
+  test('@smoke @regression should create invoice from cart', async ({
+    invoiceWithProduct,
+  }) => {
     expect(invoiceWithProduct.invoiceId).toBeDefined();
   });
 

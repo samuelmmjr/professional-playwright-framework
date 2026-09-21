@@ -3,7 +3,9 @@ import { UsersService } from '../../services/users.service';
 import { AuthService } from '../../services/auth.service';
 import { createUser } from '../../data/users';
 
-test('@smoke @regression should login registered user via API', async ({ request }) => {
+test('@smoke @regression should login registered user via API', async ({
+  request,
+}) => {
   const usersService = new UsersService(request);
 
   const authService = new AuthService(request);

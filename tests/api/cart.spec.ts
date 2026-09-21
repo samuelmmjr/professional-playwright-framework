@@ -2,7 +2,10 @@ import { test, expect } from '../../fixtures/api.fixture';
 
 import { CartService } from '../../services/cart.service';
 
-test('@smoke @regression should add product to cart', async ({ request, cartWithProduct }) => {
+test('@smoke @regression should add product to cart', async ({
+  request,
+  cartWithProduct,
+}) => {
   expect(cartWithProduct.cartId).toBeDefined();
   expect(cartWithProduct.productId).toBeDefined();
 });
