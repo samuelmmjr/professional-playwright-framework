@@ -1,26 +1,39 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../fixtures/api.fixture';
 import { ProductsService } from '../../services/products.service';
+import { expectApiError } from '../../utils/assertions';
 
-test('@smoke @regression should return products list', async ({ request }) => {
-  const productsService = new ProductsService(request);
+test.describe('Products API', () => {
+  test('@smoke @regression should return products list', async ({
+    request,
+  }) => {
+    const productsService = new ProductsService(request);
 
-  const response = await productsService.getProducts();
+    const response = await productsService.getProducts();
 
-  expect(response.data.length).toBeGreaterThan(0);
-});
+    expect(response.data.length).toBeGreaterThan(0);
+  });
 
-test('@regression should return product details by id', async ({ request }) => {
-  const productsService = new ProductsService(request);
+  test('@regression should return product details by id', async ({
+    request,
+  }) => {
+    const productsService = new ProductsService(request);
 
-  const products = await productsService.getProducts();
+    const products = await productsService.getProducts();
 
-  const productId = products.data[0].id;
+    const productId = products.data[0].id;
 
-  const product = await productsService.getProduct(productId);
+    const product = await productsService.getProduct(productId);
 
-  expect(product.id).toBe(productId);
+    expect(product.id).toBe(productId);
+    expect(product.name).toBeTruthy();
+    expect(product.price).toBeGreaterThan(0);
+  });
 
-  expect(product.name).toBeTruthy();
+  test('@negative @regression should return error when product does not exist', async ({
+    request,
+  }) => {
+    const productsService = new ProductsService(request);
 
-  expect(product.price).toBeGreaterThan(0);
+    await expectApiError(productsService.getProduct('invalid-product-id'), 404);
+  });
 });
