@@ -1,7 +1,7 @@
 import { test } from '../../fixtures/test.fixture';
 import { createUser } from '../../data/users';
 
-test('user should register and login successfully', async ({
+test('@smoke @regression user should register and login successfully', async ({
   registerPage,
   loginPage,
   accountPage,

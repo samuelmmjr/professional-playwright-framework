@@ -5,17 +5,17 @@ export async function expectApiError(
   request: Promise<unknown>,
   expectedStatus: number,
 ): Promise<void> {
+  let error: unknown;
+
   try {
     await request;
-
-    throw new Error(
-      `Expected API request to fail with status ${expectedStatus}, but it succeeded.`,
-    );
-  } catch (error) {
-    expect(error).toBeInstanceOf(ApiError);
-
-    const apiError = error as ApiError;
-
-    expect(apiError.status).toBe(expectedStatus);
+  } catch (caughtError) {
+    error = caughtError;
   }
+
+  expect(error).toBeInstanceOf(ApiError);
+
+  const apiError = error as ApiError;
+
+  expect(apiError.status).toBe(expectedStatus);
 }

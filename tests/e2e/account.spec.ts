@@ -1,8 +1,8 @@
 import { test } from '../../fixtures/test.fixture';
 
-test('authenticated user should access account', async ({
-  page,
+test('@smoke @authenticated @regression authenticated user should access account', async ({
   accountPage,
+  page,
 }) => {
   await page.goto('/account');
 

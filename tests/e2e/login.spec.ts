@@ -1,6 +1,6 @@
 import { test } from '../../fixtures/test.fixture';
 
-test('user should login successfully', async ({
+test('@smoke @regression user should login successfully', async ({
   loginPage,
   accountPage,
   testUser,
@@ -12,7 +12,7 @@ test('user should login successfully', async ({
   await accountPage.validateLoaded();
 });
 
-test('user should not login with invalid credentials', async ({
+test('@negative @regression user should not login with invalid credentials', async ({
   loginPage,
 }) => {
   await loginPage.open();

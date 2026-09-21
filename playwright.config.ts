@@ -44,9 +44,23 @@ export default defineConfig({
     },
 
     {
-      name: 'chromium',
+      name: 'chromium-public',
 
-      testIgnore: '**/api/**/*.spec.ts',
+      testMatch: [
+        '**/e2e/login.spec.ts',
+        '**/e2e/register.spec.ts',
+        '**/smoke/**/*.spec.ts',
+      ],
+
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
+
+    {
+      name: 'chromium-authenticated',
+
+      testMatch: '**/e2e/account.spec.ts',
 
       use: {
         ...devices['Desktop Chrome'],
@@ -57,28 +71,56 @@ export default defineConfig({
     },
 
     // {
-    //   name: 'firefox',
-
-    //   testIgnore: '**/api/**/*.spec.ts',
-
+    //   name: 'firefox-public',
+    //
+    //   testMatch: [
+    //     '**/e2e/login.spec.ts',
+    //     '**/e2e/register.spec.ts',
+    //     '**/smoke/**/*.spec.ts',
+    //   ],
+    //
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //   },
+    // },
+    //
+    // {
+    //   name: 'firefox-authenticated',
+    //
+    //   testMatch: '**/e2e/account.spec.ts',
+    //
     //   use: {
     //     ...devices['Desktop Firefox'],
     //     storageState: 'auth/user.json',
     //   },
-
+    //
     //   dependencies: ['setup'],
     // },
 
     // {
-    //   name: 'webkit',
-
-    //   testIgnore: '**/api/**/*.spec.ts',
-
+    //   name: 'webkit-public',
+    //
+    //   testMatch: [
+    //     '**/e2e/login.spec.ts',
+    //     '**/e2e/register.spec.ts',
+    //     '**/smoke/**/*.spec.ts',
+    //   ],
+    //
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //   },
+    // },
+    //
+    // {
+    //   name: 'webkit-authenticated',
+    //
+    //   testMatch: '**/e2e/account.spec.ts',
+    //
     //   use: {
     //     ...devices['Desktop Safari'],
     //     storageState: 'auth/user.json',
     //   },
-
+    //
     //   dependencies: ['setup'],
     // },
   ],

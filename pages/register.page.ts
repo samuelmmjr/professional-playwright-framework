@@ -1,4 +1,5 @@
 import { expect, Page } from '@playwright/test';
+import { CreateUserRequest } from '../utils/api-types';
 
 export class RegisterPage {
   constructor(private readonly page: Page) {}
@@ -7,19 +8,7 @@ export class RegisterPage {
     await this.page.goto('/auth/register');
   }
 
-  async register(user: {
-    first_name: string;
-    last_name: string;
-    dob: string;
-    address: string[];
-    postcode: string;
-    city: string;
-    state: string;
-    country: string;
-    phone: string;
-    email: string;
-    password: string;
-  }) {
+  async register(user: CreateUserRequest) {
     await this.page.getByLabel('First name').fill(user.first_name);
 
     await this.page.getByLabel('Last name').fill(user.last_name);
