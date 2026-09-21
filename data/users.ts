@@ -1,4 +1,6 @@
-export function createUser() {
+import { CreateUserRequest } from '../utils/api-types';
+
+export function createUser(): CreateUserRequest {
   const uniqueId = `${Date.now()}-${Math.floor(Math.random() * 10000)}`;
 
   return {

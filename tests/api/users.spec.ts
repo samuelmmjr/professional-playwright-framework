@@ -24,6 +24,13 @@ test.describe('Users API', () => {
     const invalidUser = {
       first_name: '',
       last_name: '',
+      dob: '',
+      address: [],
+      postcode: '',
+      city: '',
+      state: '',
+      country: '',
+      phone: '',
       email: '',
       password: '',
     };

@@ -11,6 +11,20 @@ export interface UserResponse {
   email: string;
 }
 
+export interface CreateUserRequest {
+  first_name: string;
+  last_name: string;
+  dob: string;
+  address: string[];
+  postcode: string;
+  city: string;
+  state: string;
+  country: string;
+  phone: string;
+  email: string;
+  password: string;
+}
+
 export interface ProductResponse {
   id: string;
   name: string;
