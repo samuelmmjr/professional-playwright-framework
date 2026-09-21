@@ -85,31 +85,4 @@ export class ApiClient {
 
     return this.handleResponse<T>(response);
   }
-
-  async patch<T>(
-    endpoint: string,
-    data?: unknown,
-    token?: string,
-  ): Promise<T | null> {
-    const response = await this.request.patch(
-      `${environment.apiUrl}${endpoint}`,
-      {
-        data,
-        headers: this.getHeaders(token),
-      },
-    );
-
-    return this.handleResponse<T>(response);
-  }
-
-  async options(endpoint: string) {
-    const response = await this.request.fetch(
-      `${environment.apiUrl}${endpoint}`,
-      {
-        method: 'OPTIONS',
-      },
-    );
-
-    return response;
-  }
 }
